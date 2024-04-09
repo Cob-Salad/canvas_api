@@ -48,12 +48,11 @@ async def get_courses() -> Course:
 @app.get("/discussions")
 async def get_discussions(course_id: int) -> list[Discussion]:
     response = requests.get(url=f"{base_url}/courses/{course_id}/discussion_topics", headers=headers)
-    r_json = response.json
+    r_json = response.json()
 
     discussions: list[Discussion] = []
     for discussion_json in r_json:
         discussion = Discussion(id=discussion_json["id"], title=discussion_json["title"])
-        #discussion = Discussion(**discussion_json)
         discussions.append(discussion)
 
     return discussions
